@@ -15,7 +15,7 @@ class KeychronScraper:
     def _get_soup(self):
         response = requests.get(self.url, headers=self.headers)
         if response.status_code == 200:
-            return BeautifulSoup(response.text, "html.parser")
+            return BeautifulSoup(response.text, "lxml")
         else:
             raise Exception(
                 f"La requête a échoué avec le code d'état {response.status_code}"
