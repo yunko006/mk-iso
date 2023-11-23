@@ -4,13 +4,13 @@ from sqlalchemy.orm import relationship
 from app.database import Base
 
 # peut etre import keybaord je ne suis pas sur
-from app.models.keyboard import Keyboard
+# from app.models.keyboard import Keyboard
 
 
 class Description(Base):
     __tablename__ = "descriptions"
 
-    description_id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     layout = Column(String)
     brand = Column(String)
     product_type = Column(String)
@@ -29,5 +29,5 @@ class Description(Base):
     case_material = Column(String)
     keycap_material = Column(String)
 
-    keyboard_id = Column(Integer, ForeignKey("keyboards.keyboard_id"))
+    keyboard_id = Column(Integer, ForeignKey("keyboards.id"))
     keyboard = relationship("Keyboard", back_populates="description")

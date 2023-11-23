@@ -16,7 +16,10 @@ class Keyboard(Base):
     price = Column(Integer)
     image = Column(String, nullable=True)
 
-    # site_id = Column(Integer, ForeignKey("seller_sites.site_id"))
-    # seller_site = relationship("SellerSite", back_populates="keyboards")
+    seller_site_id = Column(Integer, ForeignKey("seller_sites.id"))
+    seller_site = relationship(
+        "SellerSite",
+        back_populates="keyboards",
+    )
 
-    # description = relationship("Description", back_populates="keyboard")
+    description = relationship("Description", back_populates="keyboard")
