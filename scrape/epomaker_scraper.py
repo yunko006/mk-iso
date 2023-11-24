@@ -23,7 +23,9 @@ class EpomakerScraper:
         return name
 
     def get_price(self, keyboard):
-        price = keyboard.find("div", {"class": "f-price"}).text.strip()
+        price = keyboard.find(
+            "span", {"class": "f-price-item f-price-item--regular"}
+        ).text.strip()
         return price
 
     def get_url(self, keyboard):
@@ -58,12 +60,13 @@ class EpomakerScraper:
         return keyboards
 
 
-scraper = EpomakerScraper()
+if __name__ == "main":
+    scraper = EpomakerScraper()
 
-keyboards = scraper.scrape_keyboards()
+    keyboards = scraper.scrape_keyboards()
 
-for keyboard in keyboards:
-    print(f"Nom: {keyboard['name']}")
-    print(f"Prix: {keyboard['price']}")
-    print(f"URL de la page: {keyboard['product_link']}")
-    print("\n")
+    for keyboard in keyboards:
+        print(f"Nom: {keyboard['name']}")
+        print(f"Prix: {keyboard['price']}")
+        print(f"URL de la page: {keyboard['product_link']}")
+        print("\n")
