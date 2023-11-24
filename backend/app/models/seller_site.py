@@ -14,4 +14,4 @@ class SellerSite(Base):
     site_url = Column(String)
 
     # keyboard_id = Column(Integer, ForeignKey("keyboards.id"))
-    keyboards = relationship("Keyboard", back_populates="seller_site")
+    # keyboards = relationship("Keyboard", back_populates="seller_site")
