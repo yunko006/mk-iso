@@ -8,3 +8,15 @@ class SellersitePayloadSchema(BaseModel):
 
 class SellersiteResponseSchema(SellersitePayloadSchema):
     id: int
+
+
+class SellerSiteBase(BaseModel):
+    site_name: str
+    site_url: str
+
+
+class SellerSiteSchema(SellerSiteBase):
+    id: int
+
+    class Config:
+        orm_mode = True

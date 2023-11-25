@@ -1,7 +1,11 @@
+from typing import List
 from fastapi import APIRouter, HTTPException
-
-from app.crud.seller_sites import post
-from app.schemas.seller_sites import SellersitePayloadSchema, SellersiteResponseSchema
+from app.crud.seller_sites import post, get_one, get_all
+from app.schemas.seller_sites import (
+    SellersitePayloadSchema,
+    SellersiteResponseSchema,
+    SellerSiteSchema,
+)
 
 
 router = APIRouter()
@@ -20,3 +24,15 @@ async def create_seller_site(
     }
 
     return response_object
+
+
+@router.get("/{id}/", response_model=SellerSiteSchema)
+async def read_seller_site(id: int) -> SellerSiteSchema:
+    seller_site = await get_one(id)
+
+    return seller_site
+
+
+@router.get("/", response_model=List[SellerSiteSchema])
+async def read_all_seller_site() -> List[SellerSiteSchema]:
+    return await get_all()
