@@ -30,12 +30,12 @@ async def create_seller_site(
 
 
 @router.get("/{id}/", response_model=SellerSiteSchema)
-async def read_seller_site(id: int) -> SellerSiteSchema:
-    seller_site = await get_one(id)
+async def read_seller_site(id: int, db: Session = Depends(get_db)) -> SellerSiteSchema:
+    seller_site = await get_one(id, db)
 
     return seller_site
 
 
 @router.get("/", response_model=List[SellerSiteSchema])
-async def read_all_seller_site() -> List[SellerSiteSchema]:
-    return await get_all()
+async def read_all_seller_site(db: Session = Depends(get_db)) -> List[SellerSiteSchema]:
+    return await get_all(db)
