@@ -11,7 +11,6 @@ log = logging.getLogger("uvicorn")
 class Settings(BaseSettings):
     environment: str = os.getenv("ENVIRONMENT", "dev")
     testing: bool = os.getenv("TESTING", 0)
-    supabase_url: str = os.getenv("SUPABASE_URL")
 
 
 @lru_cache()
