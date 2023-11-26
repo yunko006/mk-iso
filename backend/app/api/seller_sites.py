@@ -7,15 +7,18 @@ from app.schemas.seller_sites import (
     SellerSiteSchema,
 )
 
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from app.database import get_db
 
 router = APIRouter()
 
 
 @router.post("/", response_model=SellersiteResponseSchema, status_code=201)
 async def create_seller_site(
-    payload: SellersitePayloadSchema,
+    payload: SellersitePayloadSchema, db: Session = Depends(get_db)
 ) -> SellersiteResponseSchema:
-    seller_site_id = await post(payload)
+    seller_site_id = await post(payload, db)
 
     response_object = {
         "id": seller_site_id,
