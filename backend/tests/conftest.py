@@ -8,7 +8,7 @@ from app.config import get_settings, Settings
 
 
 def get_settings_override():
-    return Settings(testing=1, database_url=os.environ.get("SUPABASE_URL"))
+    return Settings(testing=1)
 
 
 @pytest.fixture(scope="module")
