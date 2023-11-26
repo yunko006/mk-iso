@@ -153,3 +153,4 @@ cython_debug/
 
 # project 
 scrap.md
+.vscode/settings.json
