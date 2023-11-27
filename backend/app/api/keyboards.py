@@ -27,7 +27,7 @@ async def create_keyboard(
         "price": payload.price,
         "seller_site_id": payload.seller_site_id,
         "image": payload.image,
-        "description": payload.description,
+        "description_id": payload.description_id,
     }
 
     return response_object

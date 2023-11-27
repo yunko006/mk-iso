@@ -29,5 +29,5 @@ class Description(Base):
     case_material = Column(String)
     keycap_material = Column(String)
 
-    keyboard_id = Column(Integer, ForeignKey("keyboards.id"))
-    keyboard = relationship("Keyboard", back_populates="description")
+    # keyboard_id = Column(Integer, ForeignKey("keyboards.id"))
+    keyboards = relationship("Keyboard", back_populates="description")

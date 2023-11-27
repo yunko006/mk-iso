@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -22,4 +22,7 @@ class Keyboard(Base):
         back_populates="keyboards",
     )
 
-    description = relationship("Description", back_populates="keyboard")
+    description_id = Column(Integer, ForeignKey("descriptions.id"))
+    description = relationship(
+        "Description", back_populates="keyboards", foreign_keys=[description_id]
+    )

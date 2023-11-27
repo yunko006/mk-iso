@@ -2,6 +2,7 @@ from typing import List, Union
 from app.schemas.keyboards import KeyboardPayloadSchema
 from app.models.keyboard import Keyboard
 from app.models.seller_site import SellerSite
+from app.models.description import Description
 from app.database import get_db
 from sqlalchemy.orm import Session
 from fastapi import Depends
@@ -23,6 +24,15 @@ async def post(payload: KeyboardPayloadSchema, db: Session) -> int:
         keyboard.seller_site = seller_site
         db.commit()
         db.refresh(keyboard)
+
+    description_id = payload.description_id
+    description = db.query(Description).filter(Description.id == description_id).first()
+
+    if description:
+        keyboard.description = description
+        db.commit()
+        db.refresh(keyboard)
+
     return keyboard.id
 
 

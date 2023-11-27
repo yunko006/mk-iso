@@ -2,6 +2,10 @@ from pydantic import BaseModel
 from typing import Optional
 
 
+class DescriptionBase(BaseModel):
+    id: int
+
+
 class DescriptionPayloadSchema(BaseModel):
     layout: str
     brand: str
