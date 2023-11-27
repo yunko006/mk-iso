@@ -10,3 +10,12 @@ class EpomakerScrapeResults:
     price: float
     image: Optional[str]
     seller_site_id: int = 2  # hardcode "2" pour simplifier pour le moment.
+
+
+@dataclass
+class KeychronScrapeResults:
+    name: str
+    url: str
+    price: float
+    image: Optional[str]
+    seller_site_id: int = 67  # hardcode "2" pour simplifier pour le moment.
