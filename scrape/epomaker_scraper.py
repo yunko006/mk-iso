@@ -1,6 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 
+from schemas import EpomakerScrapeResults
+from database import get_db
+from crud import add_keyboard
+
 
 class EpomakerScraper:
     def __init__(self):
@@ -42,9 +46,10 @@ class EpomakerScraper:
         return full_product_link
 
     # main function
-    def scrape_keyboards(self):
+    def scrape_keyboards(self) -> EpomakerScrapeResults:
         soup = self._get_soup()
         keyboards = []
+        db = get_db()
 
         for keyboard in soup.find_all(
             "div", {"class": "sf__col-item w-6/12 md:w-4/12 px-2 xl:px-3"}
@@ -53,20 +58,17 @@ class EpomakerScraper:
             price = self.get_price(keyboard)
             product_link = self.get_url(keyboard)
 
-            keyboards.append(
-                {"name": name, "price": price, "product_link": product_link}
+            # Créer une instance de EpomakerScrapeResults au lieu d'un dictionnaire
+            payload = EpomakerScrapeResults(
+                name=name, url=product_link, price=float(price[1:]), image=None
             )
+
+            add_keyboard(db, payload)
 
         return keyboards
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     scraper = EpomakerScraper()
 
-    keyboards = scraper.scrape_keyboards()
-
-    for keyboard in keyboards:
-        print(f"Nom: {keyboard['name']}")
-        print(f"Prix: {keyboard['price']}")
-        print(f"URL de la page: {keyboard['product_link']}")
-        print("\n")
+    scraper.scrape_keyboards()
