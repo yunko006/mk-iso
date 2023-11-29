@@ -22,7 +22,7 @@ class Keyboard(Base):
         back_populates="keyboards",
     )
 
-    description_id = Column(Integer, ForeignKey("descriptions.id"))
     description = relationship(
-        "Description", back_populates="keyboards", foreign_keys=[description_id]
+        "Description",
+        back_populates="keyboard",
     )

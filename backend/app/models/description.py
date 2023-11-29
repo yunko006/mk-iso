@@ -18,7 +18,7 @@ class Description(Base):
     layout_size = Column(String, nullable=True)
     layout_standard = Column(String, nullable=True)
     layout_ergonomics = Column(String, nullable=True)
-    hot_swappable = Column(Boolean, nullable=True)
+    hot_swappable = Column(String, nullable=True)
     knob_support = Column(Boolean, nullable=True)
     rgb_support = Column(Boolean, nullable=True)
     display_support = Column(Boolean, nullable=True)
@@ -29,5 +29,9 @@ class Description(Base):
     case_material = Column(String, nullable=True)
     keycap_material = Column(String, nullable=True)
 
-    # keyboard_id = Column(Integer, ForeignKey("keyboards.id"))
-    keyboards = relationship("Keyboard", back_populates="description")
+    keyboard_id = Column(Integer, ForeignKey("keyboards.id"))
+    keyboard = relationship(
+        "Keyboard",
+        back_populates="description",
+        foreign_keys=[keyboard_id],
+    )
