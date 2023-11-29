@@ -3,9 +3,7 @@ from app.schemas.keyboards import KeyboardPayloadSchema
 from app.models.keyboard import Keyboard
 from app.models.seller_site import SellerSite
 from app.models.description import Description
-from app.database import get_db
 from sqlalchemy.orm import Session
-from fastapi import Depends
 
 
 async def post(payload: KeyboardPayloadSchema, db: Session) -> int:
@@ -45,5 +43,5 @@ async def get_one(id: int, db: Session) -> Union[dict, None]:
 
 
 async def get_all(db: Session) -> List:
-    seller_sites = db.query(Keyboard).all()
-    return seller_sites
+    query = db.query(Keyboard).all()
+    return query
