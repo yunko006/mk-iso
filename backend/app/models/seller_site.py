@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 
 from app.database import Base
 
-# from app.models.keyboard import Keyboard
-
 
 class SellerSite(Base):
     __tablename__ = "seller_sites"
