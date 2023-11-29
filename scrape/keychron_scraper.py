@@ -2,6 +2,10 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+from schemas import KeychronScrapeResults
+from database import get_db
+from crud import add_keyboard
+
 
 class KeychronScraper:
     def __init__(self):
@@ -55,15 +59,19 @@ class KeychronScraper:
         self._scroll_down()
         soup = self._get_soup()
         keyboards = []
+        db = get_db()
 
         for keyboard in soup.find_all("li", {"class": "js-pagination-result"}):
             name = self.get_name(keyboard)
             price = self.get_price(keyboard)
             product_link = self.get_url(keyboard)
 
-            keyboards.append(
-                {"name": name, "price": price, "product_link": product_link}
+            # Créer une instance de EpomakerScrapeResults au lieu d'un dictionnaire
+            payload = KeychronScrapeResults(
+                name=name, url=product_link, price=float(price[1:]), image=None
             )
+
+            add_keyboard(db, payload)
 
         return keyboards
 

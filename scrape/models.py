@@ -1,10 +1,40 @@
+# will use models.py for now, i'm considering a common folder to be share with api & scraper.
+
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, declarative_base
 
-from app.database import Base
+Base = declarative_base()
 
-# peut etre import keybaord je ne suis pas sur
-# from app.models.keyboard import Keyboard
+
+class Keyboard(Base):
+    __tablename__ = "keyboards"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    url = Column(String)
+    price = Column(Integer)
+    image = Column(String, nullable=True)
+
+    seller_site_id = Column(Integer, ForeignKey("seller_sites.id"))
+    seller_site = relationship(
+        "SellerSite",
+        back_populates="keyboards",
+    )
+
+    description = relationship(
+        "Description",
+        back_populates="keyboard",
+    )
+
+
+class SellerSite(Base):
+    __tablename__ = "seller_sites"
+
+    id = Column(Integer, primary_key=True)
+    site_name = Column(String, nullable=False)
+    site_url = Column(String, nullable=False)
+
+    keyboards = relationship("Keyboard", back_populates="seller_site")
 
 
 class Description(Base):

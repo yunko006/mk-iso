@@ -9,7 +9,7 @@ class KeyboardPayloadSchema(BaseModel):
     price: int
     image: Optional[str]
     seller_site_id: int
-    description: Optional[DescriptionPayloadSchema]
+    description_id: int
 
 
 class KeyboardResponseSchema(KeyboardPayloadSchema):

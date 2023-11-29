@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 
 
-from app.api import ping, seller_sites, keyboards
+from app.api import ping, seller_sites, keyboards, descriptions
 
 
 def create_application() -> FastAPI:
@@ -18,7 +18,9 @@ def create_application() -> FastAPI:
     application.include_router(
         keyboards.router, prefix="/keyboards", tags=["keyboards"]
     )
-
+    application.include_router(
+        descriptions.router, prefix="/descriptions", tags=["descriptions"]
+    )
     return application
 
 
