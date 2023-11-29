@@ -19,8 +19,8 @@ import pytest
 # # Vous pouvez maintenant utiliser SessionLocal pour créer des sessions avec le schéma 'tests'
 
 
-def test_create_seller_site(test_app_with_db):
-    response = test_app_with_db.post(
+def test_create_seller_site(client):
+    response = client.post(
         "/seller_sites/",
         data=json.dumps({"site_url": "https://foo.bar", "site_name": "lul"}),
     )
@@ -29,7 +29,7 @@ def test_create_seller_site(test_app_with_db):
     assert response.json()["site_url"] == "https://foo.bar"
 
 
-def test_create_seller_site_invalid_json(test_app):
+def test_create_seller_site_invalid_json(client):
     """
     Actuellement ma db accepte de valeurs nuls/empty ce test ne peut pas passer.
     """
@@ -67,14 +67,14 @@ def test_create_seller_site_invalid_json(test_app):
     """
 
 
-def test_read_seller_site(test_app_with_db):
-    response = test_app_with_db.post(
+def test_read_seller_site(client):
+    response = client.post(
         "/seller_sites/",
         data=json.dumps({"site_url": "https://foo.bar", "site_name": "Fighters"}),
     )
     seller_site_id = response.json()["id"]
 
-    response = test_app_with_db.get(f"/seller_sites/{seller_site_id}/")
+    response = client.get(f"/seller_sites/{seller_site_id}/")
     assert response.status_code == 200
 
     response_dict = response.json()
@@ -83,14 +83,14 @@ def test_read_seller_site(test_app_with_db):
     assert response_dict["site_name"] == "Fighters"
 
 
-def test_read_all_seller_sites(test_app_with_db):
-    response = test_app_with_db.post(
+def test_read_all_seller_sites(client):
+    response = client.post(
         "/seller_sites/",
         data=json.dumps({"site_url": "https://foo.bar", "site_name": "Fighters"}),
     )
     seller_site_id = response.json()["id"]
 
-    response = test_app_with_db.get("/seller_sites/")
+    response = client.get("/seller_sites/")
     assert response.status_code == 200
 
     response_list = response.json()
