@@ -19,3 +19,16 @@ def get_db() -> Session:
         yield db
     finally:
         db.close()
+
+
+# def get_db(testing: int = Depends(lambda x: Settings.testing)) -> Session:
+#     if testing == 1:
+#         db = sessionmaker(
+#             autocommit=False, autoflush=False, bind=engine, schema="tests"
+#         )
+#     else:
+#         db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
